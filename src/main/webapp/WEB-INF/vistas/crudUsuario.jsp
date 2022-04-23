@@ -194,7 +194,7 @@
 												<div class="form-group">
 													<label class="col-lg-3 control-label" for="id_dni">DNI</label>
 													<div class="col-lg-5">
-														<input class="form-control" id="id_dni"	name="dni" placeholder="Ingrese el dni" type="number" maxlength="30" />
+														<input class="form-control" id="id_dni"	name="dni" onkeyup="consultarDni()" placeholder="Ingrese el dni" type="number" maxlength="30" />
 													</div>
 												</div>
 												<div class="form-group">
@@ -386,16 +386,22 @@ $.getJSON("listaTipoUsuario",{},function(data){
 		$("#id_act_tipo_usuario").append("<option value='" + obj.idTipoUsuario+ "'>"+obj.nombre+"</option>");
 	});
 });
+function consultarDni()
+{
+	var dni =$('#id_dni').val();
 
 
-$.getJSON("listaDepartamento",{},function(data){
-	$.each(data,function(i, obj){
-		$("#id_departamento").append("<option value='" + obj+ "'>"+obj+"</option>");
-		console.log(obj);
+	$.getJSON("consultarDni",{"dni":dni},function(data){
+			$('input[id=id_nombre]').val(data.data.nombres);
+			$('input[id=id_apellidos]').val(data.data.apellido_paterno+" "+data.data.apellido_materno);
+
 	});
-});
+
+}
+</script>
 
 
+<script type="text/javascript">
 $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
     $("#success-alert").slideUp(500);
 });

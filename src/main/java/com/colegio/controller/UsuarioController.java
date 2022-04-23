@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.colegio.Bean.BeanUsuario;
 import com.colegio.entity.UsuarioHasRol;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +26,25 @@ import com.google.gson.Gson;
 public class UsuarioController {
 	
 	String URL="http://localhost:8091/api/rest/usuario";
+
+
+	@RequestMapping("/consultarDni")
+	@ResponseBody
+	public BeanUsuario consultarUsuarioDni(@RequestParam("dni") String dni) {
+		BeanUsuario bean=null;
+		try
+		{
+			RestTemplate rt= new RestTemplate();
+			ResponseEntity<BeanUsuario> response= rt.getForEntity("https://apiperu.dev/api/dni/" +
+					dni+"?api_token=f96f51fb37cb68d787caab0144ada38df7230bf194282aac732d86f73d3dfe77", BeanUsuario.class);
+			bean=response.getBody();
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return bean;
+	}
+
 
 	@RequestMapping("/consultaCrudUsuario")
 	public String listarusuario(Model model ) {
