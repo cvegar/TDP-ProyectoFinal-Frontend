@@ -60,7 +60,6 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>codigo</th>
                                 <th>nombre</th>
                                 <th>estado</th>
                                 <th>Actualiza </th>
@@ -69,19 +68,18 @@
                             </thead>
                             <tbody>
 
-                            <c:forEach items="${curso}" var="x">
+                            <c:forEach items="${rol}" var="x">
                                 <tr>
-                                    <td>${x.idCurso}</td>
-                                    <td>${x.codigo}</td>
+                                    <td>${x.idRol}</td>
                                     <td>${x.nombre}</td>
                                     <td>${x.estado}</td>
                                     <td>
-                                        <button type='button' data-toggle='modal' onclick="editar('${x.idCurso}','${x.codigo}','${x.nombre}','${x.estado}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+                                        <button type='button' data-toggle='modal' onclick="editar('${x.idRol}','${x.nombre}','${x.estado}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
                                             <img src='images/edit.gif' width='auto' height='auto' />
                                         </button>
                                     </td>
                                     <td>
-                                        <a type='button' data-toggle='modal' onclick="eliminar('${x.idCurso}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+                                        <a type='button' data-toggle='modal' onclick="eliminar('${x.idRol}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
                                             <img src='images/delete.gif' width='auto' height='auto' />
                                         </a>
                                     </td>
@@ -117,23 +115,17 @@
                                 <div id="stepOne" class="panel-collapse collapse in">
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            <input type="hidden" name="idCurso" id="codigo" value="0">
-                                            <label class="col-lg-3 control-label" for="id_reg_codigo">codigo</label>
+                                            <input type="hidden" name="idRol" id="rol" value="0">
+                                            <label class="col-lg-3 control-label" for="id_reg_nombre">Nombre</label>
                                             <div class="col-lg-5">
-                                                <input class="form-control" id="id_reg_codigo" name="codigo" placeholder="Ingrese el codigo" type="text" maxlength="20"/>
+                                                <input class="form-control" id="id_reg_nombre" name="nombre" placeholder="Ingrese el nombre" type="text" maxlength="20"/>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-lg-3 control-label" for="id_reg_titulo">nombre</label>
-                                            <div class="col-lg-5">
-                                                <input class="form-control" id="id_reg_nombre" name="nombre" placeholder="Ingrese la nombre" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
                                             <label class="col-lg-3 control-label" for="id_reg_estado">estado</label>
                                             <div class="col-lg-5">
-                                                <input class="form-control" id="id_reg_estado" name="estado" placeholder="Ingrese el numero" type="text" maxlength="10"/>
+                                                <input class="form-control" id="id_reg_estado" name="estado" placeholder="Ingrese el estado" type="text" maxlength="10"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -164,7 +156,7 @@
                     <h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Curso</h4>
                 </div>
                 <div class="modal-body" style="padding: 20px 10px;">
-                    <form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaCrudCurso" class="form-horizontal"     method="post">
+                    <form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaCrudRol" class="form-horizontal"  method="post">
                         <div class="panel-group" id="steps">
                             <!-- Step 1 -->
                             <div class="panel panel-default">
@@ -180,14 +172,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-3 control-label" for="id_act_codigo">codigo</label>
-                                            <div class="col-lg-5">
-                                                <input class="form-control" id="id_act_codigo" name="codigo" placeholder="Ingrese el codigo" type="text" maxlength="20"/>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label" for="id_act_titulo">nombre</label>
+                                            <label class="col-lg-3 control-label" for="id_act_nombre">nombre</label>
                                             <div class="col-lg-5">
                                                 <input class="form-control" id="id_act_nombre" name="nombre" placeholder="Ingrese la nombre" type="text" />
                                             </div>
@@ -260,10 +245,9 @@
         $('#idModalRegistra').modal("show");
     }
 
-    function editar(id,codigo,nombre,estado){
+    function editar(id,nombre,estado){
         $('input[id=id_ID]').val(id);
-        $('input[id=id_act_codigo]').val(codigo);
-        $('input[id=id_act_nombre').val(nombre);
+        $('input[id=id_act_nombre]').val(nombre);
         $('input[id=id_act_estado]').val(estado);
         $('#idModalActualiza').modal("show");
     }

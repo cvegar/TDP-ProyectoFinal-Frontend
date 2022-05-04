@@ -9,7 +9,7 @@ public class Usuario {
 	private String nombres;
 	private String apellidos;
 	private String fechaNacimiento;
-	
+	private String nombreCompleto;
 	private Date fechaRegistro;
 	private String email;
 	private String estado;
@@ -18,7 +18,7 @@ public class Usuario {
 	private String dni;
 	private String login;
 	private String password;	
-	private String nombreCompleto;
+
 	
 	public Usuario(int usu) {
 		idUsuario=usu;

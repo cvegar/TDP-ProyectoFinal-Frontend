@@ -63,6 +63,7 @@
 												<th>codigo</th>
 												<th>estado</th>
 												<th>aula</th>
+												<th>profesor</th>
 												<th>Actualiza </th>
 												<th>Elimina </th>
 											</tr>
@@ -75,8 +76,9 @@
 														<td>${x.codigo}</td>
 														<td>${x.estado}</td>
 														<td>${x.aula.aulaName}</td>
+														<td>${x.docente.nombreCompleto}</td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="editar('${x.idSeccion}','${x.codigo}','${x.estado}','${x.aula.idAula}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+															<button type='button' data-toggle='modal' onclick="editar('${x.idSeccion}','${x.codigo}','${x.estado}','${x.aula.idAula}','${x.docente.idUsuario}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
 																<img src='images/edit.gif' width='auto' height='auto' />
 															</button>
 														</td>
@@ -134,6 +136,14 @@
 												<label class="col-lg-3 control-label" for="id_reg_aula">Aula</label>
 												<div class="col-lg-5">
 													<select id="id_reg_aula" name="aula" class='form-control'>
+														<option value=" ">[Seleccione]</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-3 control-label" for="id_reg_profesor">Aula</label>
+												<div class="col-lg-5">
+													<select id="id_reg_profesor" name="docente" class='form-control'>
 														<option value=" ">[Seleccione]</option>
 													</select>
 												</div>
@@ -202,7 +212,14 @@
 													</select>
 												</div>
 											</div>
-		                                   
+											<div class="form-group">
+												<label class="col-lg-3 control-label" for="id_act_profesor">Aula</label>
+												<div class="col-lg-5">
+													<select id="id_act_profesor" name="docente" class='form-control'>
+														<option value=" ">[Seleccione]</option>
+													</select>
+												</div>
+											</div>
 		                                    <div class="form-group">
 		                                        <div class="col-lg-9 col-lg-offset-3">
 		                                        	<button type="submit" class="btn btn-primary" id="idBtnActualiza">ACTUALIZA</button>
@@ -254,6 +271,13 @@ $.getJSON("listaAula",{},function(data){
 		$("#id_act_aula").append("<option value='" + obj.idAula+ "'>"+obj.aulaName+"</option>");
 	});
 });
+$.getJSON("listaDocentes",{},function(data){
+	$.each(data,function(i, obj){
+		$("#id_reg_profesor").append("<option value='" + obj.idUsuario+ "'>"+obj.nombreCompleto+"</option>");
+		$("#id_act_profesor").append("<option value='" + obj.idUsuario+ "'>"+obj.nombreCompleto+"</option>");
+	});
+});
+
 </script>
 
 
@@ -280,11 +304,12 @@ function registrar(){
 	$('#idModalRegistra').modal("show");
 }
 
-function editar(id,codigo,estado,idAula){
+function editar(id,codigo,estado,idAula,idUsuario){
 	$('input[id=id_ID]').val(id);
 	$('input[id=id_act_codigo]').val(codigo);
 	$('input[id=id_act_estado]').val(estado);
 	$('select[id=id_act_aula]').val(idAula);
+	$('select[id=id_act_profesor]').val(idUsuario);
 	$('#idModalActualiza').modal("show");
 }
 

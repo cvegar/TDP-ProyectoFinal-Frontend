@@ -1,6 +1,7 @@
 package com.colegio.controller;
 
 import com.colegio.entity.Seccion;
+import com.colegio.entity.Usuario;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -41,6 +42,7 @@ public class SeccionController {
 								  @RequestParam("codigo") String codigo,
 								  @RequestParam("estado") String estado,
 								  @RequestParam("aula") int idAula,
+						     	  @RequestParam("docente") int idDocente,
 								  RedirectAttributes model) {
 		try {
 			//crear objeto de la clase Computadora
@@ -49,6 +51,7 @@ public class SeccionController {
 			bean.setCodigo(codigo);
 			bean.setEstado(estado);
 			bean.setAula(new Aula(idAula));
+			bean.setDocente(new Usuario(idDocente));
 			Gson gson=new Gson();
 			String json=gson.toJson(bean);
 			//clase para acceder a un servicio

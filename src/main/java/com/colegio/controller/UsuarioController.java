@@ -93,6 +93,21 @@ public class UsuarioController {
 	}
 	 return lista;
 	}
+	@RequestMapping("/listaDocentes")
+	@ResponseBody
+	public Usuario[] listaDocentes() {
+		Usuario[] lista=null;
+		try
+		{
+			RestTemplate rt= new RestTemplate();
+			ResponseEntity<Usuario[]> response= rt.getForEntity(URL + "/listaDocentes", Usuario[].class);
+			lista=response.getBody();
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return lista;
+	}
 
 	@RequestMapping("/listaTipoUsuario")
 	@ResponseBody
