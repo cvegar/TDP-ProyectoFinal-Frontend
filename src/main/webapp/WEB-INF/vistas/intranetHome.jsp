@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="css/bootstrapValidator.css"/>
 
 
-<title>Intranet Colegio - Jorge Jacinto Gutarra</title>
+<title>Intranet Colegio</title>
 </head>
 <body>
        
@@ -38,9 +38,12 @@
   
 
 <div class="container" >
-<div class="col-md-12" align="center"> 
+<div class="col-md-12" align="center">
 
  </div>
-</div>    		
+</div>
+<script type="text/javascript">
+    localStorage.setItem('user','${sessionScope.objUsuario.idUsuario}'); //Where param user is your request parameter from previous jsp.
+</script>
 </body>
 </html>

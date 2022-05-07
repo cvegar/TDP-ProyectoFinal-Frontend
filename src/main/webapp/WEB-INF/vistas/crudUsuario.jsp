@@ -14,7 +14,6 @@
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css"/>
 	<link rel="stylesheet" href="css/bootstrapValidator.css"/>
-	<title>Ejemplos de CIBERTEC - Jorge Jacinto </title>
 </head>
 <body>
 

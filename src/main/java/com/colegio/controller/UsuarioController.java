@@ -215,7 +215,7 @@ public class UsuarioController {
 				HttpHeaders header=new HttpHeaders();
 				header.setContentType(MediaType.APPLICATION_JSON);
 				HttpEntity<String> request=new HttpEntity<String>(json,header);
-				rt.postForObject(URL, request, String.class);
+				rt.put(URL, request, String.class);
 				model.addFlashAttribute("MENSAJE","Registro actualizado correctamente...");
 
 

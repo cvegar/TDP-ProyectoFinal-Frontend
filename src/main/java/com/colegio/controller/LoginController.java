@@ -24,7 +24,7 @@ public class LoginController {
 	//amor si entra se queda aqui nomas
 
 	@RequestMapping("/login")
-	public String login(@RequestParam("login") String usuario,@RequestParam("password") String password, HttpSession  session, HttpServletRequest request) {
+	public String login(@RequestParam("login") String usuario,@RequestParam("password") String password, HttpSession  session) {
 		
 		RestTemplate rt=new RestTemplate();
 		ResponseEntity<Usuario> response=rt.getForEntity(URL+"/login/"+usuario+"/"+password,Usuario.class); //aqui entra

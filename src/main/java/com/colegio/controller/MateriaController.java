@@ -1,6 +1,8 @@
 package com.colegio.controller;
 
-import com.colegio.entity.Rol;
+import com.colegio.entity.Aula;
+import com.colegio.entity.Materia;
+import com.colegio.entity.Materia;
 import com.colegio.entity.Seccion;
 import com.google.gson.Gson;
 import org.springframework.http.HttpEntity;
@@ -12,34 +14,38 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class RolController {
+public class MateriaController {
 
-    String URL="http://localhost:8091/api/rest/rol";
+    String URL="http://localhost:8091/api/rest/materia";
 
-    @RequestMapping("/consultaCrudRol")
-    public String listarMatricula(Model model){
+    @RequestMapping("/consultaCrudMateria")
+   public String listarMatricula(Model model){
 
         RestTemplate rt= new RestTemplate();
-        ResponseEntity<Rol[]> response= rt.getForEntity(URL, Rol[].class);
-        Rol[] lista=response.getBody();
+        ResponseEntity<Materia[]> response= rt.getForEntity(URL+"/listaMateria", Materia[].class);
+        Materia[] lista=response.getBody();
         System.out.println(lista);
-        model.addAttribute("rol",lista);
+        model.addAttribute("materia",lista);
 
-        return "crudRol";
+        return "crudMateria";
     }
-    @RequestMapping(value = "/registraActualizaCrudRol")
-    public String saveRol(@RequestParam("idRol") int idRol,
+
+    @RequestMapping(value = "/registraActualizaCrudMateria")
+    public String saveMateria(@RequestParam("idMateria") int idMateria,
+                          @RequestParam("codigo") String codigo,
                           @RequestParam("nombre") String nombre,
                           @RequestParam("estado") String estado,
                           RedirectAttributes model) {
         try {
             //crear objeto de la clase Computadora
-            Rol bean=new Rol();
-            bean.setIdRol(idRol);
+            Materia bean=new Materia();
+            bean.setIdMateria(idMateria);
+            bean.setCodigo(codigo);
             bean.setNombre(nombre);
             bean.setEstado(estado);
             Gson gson=new Gson();
@@ -47,7 +53,7 @@ public class RolController {
             //clase para acceder a un servicio
             RestTemplate rt=new RestTemplate();
             //validar
-            if(idRol==0) {//registrar====>post
+            if(idMateria==0) {//registrar====>post
                 //crear un objeto de la clase HttpHeaders para indicar que se envia un JSON
                 HttpHeaders header=new HttpHeaders();
                 header.setContentType(MediaType.APPLICATION_JSON);
@@ -70,15 +76,29 @@ public class RolController {
 
             }
 
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/consultaCrudRol";
+        return "redirect:/consultaCrudMateria";
     }
 
-    @RequestMapping(value = "/eliminaCrudRol/{id}")
+    @RequestMapping("/listaMateria")
+    @ResponseBody
+    public Materia[] listaMateria() {
+        Materia[] lista=null;
+        try
+        {
+            RestTemplate rt= new RestTemplate();
+            ResponseEntity<Materia[]> response= rt.getForEntity(URL + "/listaMateria", Materia[].class);
+            lista=response.getBody();
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
+        return lista;
+    }
+
+    @RequestMapping(value = "/eliminaCrudMateria/{id}")
     public String delete(@PathVariable("id") int cod, RedirectAttributes model){
         try {
             RestTemplate rt=new RestTemplate();
@@ -88,6 +108,6 @@ public class RolController {
             e.printStackTrace();
             model.addFlashAttribute("MENSAJE","Error en la eliminaciòn...");
         }
-        return "redirect:/consultaCrudRol";
+        return "redirect:/consultaCrudMateria";
     }
 }

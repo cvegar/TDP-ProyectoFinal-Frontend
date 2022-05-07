@@ -26,7 +26,7 @@
 <div class="container">
  <h3>Registro de Seccion</h3>
 		 <div class="col-md-23" >  
-			  <form id="idFormElimina" action="eliminaCrudAula">
+			  <form id="idFormElimina" action="eliminaCrudSeccion">
 			  		<input type="hidden" id="id_elimina" name="id">
 			  </form>	
 				
@@ -64,6 +64,7 @@
 												<th>estado</th>
 												<th>aula</th>
 												<th>profesor</th>
+												<th>materia</th>
 												<th>Actualiza </th>
 												<th>Elimina </th>
 											</tr>
@@ -77,8 +78,9 @@
 														<td>${x.estado}</td>
 														<td>${x.aula.aulaName}</td>
 														<td>${x.docente.nombreCompleto}</td>
+														<td>${x.materia.nombre}</td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="editar('${x.idSeccion}','${x.codigo}','${x.estado}','${x.aula.idAula}','${x.docente.idUsuario}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+															<button type='button' data-toggle='modal' onclick="editar('${x.idSeccion}','${x.codigo}','${x.estado}','${x.aula.idAula}','${x.docente.idUsuario}','${x.materia.idMateria}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
 																<img src='images/edit.gif' width='auto' height='auto' />
 															</button>
 														</td>
@@ -106,7 +108,7 @@
 				<div class="modal-content">
 				<div class="modal-header" style="padding: 35px 50px">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de Aula</h4>
+					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de Seccion</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
 						<form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudSeccion" class="form-horizontal"     method="post">
@@ -141,9 +143,17 @@
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-lg-3 control-label" for="id_reg_profesor">Aula</label>
+												<label class="col-lg-3 control-label" for="id_reg_profesor">Docente</label>
 												<div class="col-lg-5">
 													<select id="id_reg_profesor" name="docente" class='form-control'>
+														<option value=" ">[Seleccione]</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-3 control-label" for="id_reg_materia">Materia</label>
+												<div class="col-lg-5">
+													<select id="id_reg_materia" name="materia" class='form-control'>
 														<option value=" ">[Seleccione]</option>
 													</select>
 												</div>
@@ -213,9 +223,17 @@
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-lg-3 control-label" for="id_act_profesor">Aula</label>
+												<label class="col-lg-3 control-label" for="id_act_profesor">Docente</label>
 												<div class="col-lg-5">
 													<select id="id_act_profesor" name="docente" class='form-control'>
+														<option value=" ">[Seleccione]</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-3 control-label" for="id_act_materia">Materia</label>
+												<div class="col-lg-5">
+													<select id="id_act_materia" name="materia" class='form-control'>
 														<option value=" ">[Seleccione]</option>
 													</select>
 												</div>
@@ -277,6 +295,12 @@ $.getJSON("listaDocentes",{},function(data){
 		$("#id_act_profesor").append("<option value='" + obj.idUsuario+ "'>"+obj.nombreCompleto+"</option>");
 	});
 });
+$.getJSON("listaMateria",{},function(data){
+	$.each(data,function(i, obj){
+		$("#id_reg_materia").append("<option value='" + obj.idMateria+ "'>"+obj.nombre+"</option>");
+		$("#id_act_materia").append("<option value='" + obj.idMateria+ "'>"+obj.nombre+"</option>");
+	});
+});
 
 </script>
 
@@ -285,6 +309,11 @@ $.getJSON("listaDocentes",{},function(data){
 $("#idBtnElimina").click(function(){
 	$("#idFormElimina").submit();
 });
+function eliminar(id){
+	$('#idModalElimina').modal('show');
+	$('#id_elimina').val(id);
+}
+
 $(document).on("click",".btnEliminar",function(){
 	//acci�n por defecto
 	event.preventDefault();
@@ -295,21 +324,18 @@ $(document).on("click",".btnEliminar",function(){
 	$("#btnEliminar").attr('href',ruta);
 	$("#idModalElimina").modal("show");
 })
-function eliminar(id){
-	$('#idModalElimina').modal('show');
-	$('#id_elimina').val(id);	
-}
 
 function registrar(){	
 	$('#idModalRegistra').modal("show");
 }
 
-function editar(id,codigo,estado,idAula,idUsuario){
+function editar(id,codigo,estado,idAula,idUsuario,idMateria){
 	$('input[id=id_ID]').val(id);
 	$('input[id=id_act_codigo]').val(codigo);
 	$('input[id=id_act_estado]').val(estado);
 	$('select[id=id_act_aula]').val(idAula);
 	$('select[id=id_act_profesor]').val(idUsuario);
+	$('select[id=id_act_materia]').val(idMateria);
 	$('#idModalActualiza').modal("show");
 }
 

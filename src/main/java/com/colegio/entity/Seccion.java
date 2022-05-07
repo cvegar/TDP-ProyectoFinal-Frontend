@@ -16,6 +16,7 @@ public class Seccion {
 	private String estado;
 	private Aula aula;
 	private Usuario docente;
+	private Materia materia;
 
 	public Seccion(int seccion) {
 		idSeccion=seccion;
